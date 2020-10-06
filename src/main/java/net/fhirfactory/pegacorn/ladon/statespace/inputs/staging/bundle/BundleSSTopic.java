@@ -23,6 +23,8 @@ package net.fhirfactory.pegacorn.ladon.statespace.inputs.staging.bundle;
 
 import net.fhirfactory.pegacorn.petasos.model.topics.TopicToken;
 import net.fhirfactory.pegacorn.petasos.wup.archetypes.MOAStandardWUP;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.HashSet;
@@ -30,8 +32,12 @@ import java.util.Set;
 
 @ApplicationScoped
 public class BundleSSTopic extends MOAStandardWUP {
+    private static final Logger LOG = LoggerFactory.getLogger(BundleSSTopic.class );
+    @Override
+    protected Logger getLogger(){return(LOG);}
+
     private static String BUNDLE_STATE_SPACE_TOPIC_WUP_VERSION = "1.0.0";
-    private static String BUNDLE_STATE_SPACE_TOPIC_WUP_NAME = "StateSpaceInputsBundleTopicWUP";
+    private static String BUNDLE_STATE_SPACE_TOPIC_WUP_NAME = "Pegacorn.Ladon.StateSpace.PubSub.FHIR-Bundle";
     private static String BUNDLE_STATE_SPACE_FHIR_VERSION = "4.0.1";
 
     @Override
@@ -63,7 +69,7 @@ public class BundleSSTopic extends MOAStandardWUP {
         // This is truly a do-nothing WUP for the initial release and is really only here to
         // separate the topics into their own queue.
         from(ingresFeed())
-                .routeId(this.getNameSet().getWupTypeName())
+                .routeId(this.getNameSet().getRouteCoreWUP())
                 .bean(BundleSSTopicProcessorBean.class,"toPubSub(*)")
                 .to(egressFeed());
     }

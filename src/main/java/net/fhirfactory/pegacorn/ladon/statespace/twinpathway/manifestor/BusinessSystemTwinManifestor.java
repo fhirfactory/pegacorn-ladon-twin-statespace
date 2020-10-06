@@ -23,11 +23,17 @@ package net.fhirfactory.pegacorn.ladon.statespace.twinpathway.manifestor;
 
 import net.fhirfactory.pegacorn.ladon.model.behaviours.BehaviourIdentifier;
 import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.manifestor.common.TwinManifestorBase;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class BusinessSystemTwinManifestor extends TwinManifestorBase {
+    private static final Logger LOG = LoggerFactory.getLogger(BusinessSystemTwinManifestor.class );
+    @Override
+    protected Logger getLogger(){return(LOG);}
+
 
     public BusinessSystemTwinManifestor() {
         super();

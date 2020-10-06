@@ -25,6 +25,7 @@ import net.fhirfactory.pegacorn.ladon.model.behaviours.ExplicitStimulus2TwinInst
 import net.fhirfactory.pegacorn.ladon.model.stimuli.Stimulus;
 import net.fhirfactory.pegacorn.ladon.model.twin.DigitalTwinIdentifier;
 import net.fhirfactory.pegacorn.ladon.processingplant.LadonProcessingPlant;
+import net.fhirfactory.pegacorn.ladon.statespace.stimuli.model.BehaviourCentricExclusiveFilterRulesInterface;
 import net.fhirfactory.pegacorn.ladon.statespace.stimuli.model.BehaviourCentricInclusiveFilterRulesInterface;
 import net.fhirfactory.pegacorn.ladon.statespace.stimuli.model.StimulusPackage;
 import net.fhirfactory.pegacorn.ladon.statespace.twinpathwaycontroller.common.TwinPathwayControllerBase;
@@ -41,8 +42,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class TwinOrchestratorBase extends RouteBuilder {
-    private ConcurrentHashMap<DigitalTwinIdentifier, ConcurrentLinkedQueue<StimulusPackage>> twinInstanceQueue;
+
     private ConcurrentHashMap<Stimulus, DigitalTwinIdentifier> stimulusInterestSet;
+    private List<BehaviourCentricInclusiveFilterRulesInterface> inclusiveFilterList;
+    private List<BehaviourCentricExclusiveFilterRulesInterface> exclusiveFilterList;
     private TwinTypeEnum twinType;
 
     @Inject
@@ -50,7 +53,6 @@ public abstract class TwinOrchestratorBase extends RouteBuilder {
 
     public TwinOrchestratorBase(){
         this.twinType = specifyTwinType();
-        twinInstanceQueue = new ConcurrentHashMap<DigitalTwinIdentifier, ConcurrentLinkedQueue<StimulusPackage>>();
     }
 
     @PostConstruct
@@ -85,6 +87,4 @@ public abstract class TwinOrchestratorBase extends RouteBuilder {
 
 
     }
-
-
 }

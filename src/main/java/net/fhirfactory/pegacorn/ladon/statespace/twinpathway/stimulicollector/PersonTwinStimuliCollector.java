@@ -23,11 +23,17 @@ package net.fhirfactory.pegacorn.ladon.statespace.twinpathway.stimulicollector;
 
 import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.stimulicollector.common.TwinStimuliCollectorBase;
 import net.fhirfactory.pegacorn.ladon.statespace.twinpathwaycontroller.common.TwinTypeEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class PersonTwinStimuliCollector extends TwinStimuliCollectorBase {
+    private static final Logger LOG = LoggerFactory.getLogger(PersonTwinStimuliCollector.class);
+    @Override
+    protected Logger getLogger(){return(LOG);}
+
     @Override
     protected String specifyTwinTypeName() {
         return (TwinTypeEnum.PERSON_TWIN.getTwinTypeName());

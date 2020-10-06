@@ -20,7 +20,8 @@ public abstract class TwinStimuliCollectorBase extends MOAStandardWUP {
 
     @Override
     protected String specifyWUPInstanceName() {
-        return(specifyTwinTypeName());
+        String wupName = "Ladon.StateSpace.StimuliCollector." + specifyTwinTypeName();
+        return(wupName);
     }
 
     @Override
@@ -40,6 +41,15 @@ public abstract class TwinStimuliCollectorBase extends MOAStandardWUP {
         if(newTopic != null ){
             topicServer.addTopicSubscriber(newTopic,getWupTopologyNodeElement().getNodeInstanceID());
         }
+    }
+
+    @Override
+    public void configure() throws Exception {
+
+        from(ingresFeed())
+                .routeId(getNameSet().getRouteCoreWUP())
+                .bean(TwinStimuliCollectorProcessingBean.class, "collectForQueueing(*, " + specifyTwinTypeName() +")")
+                .to(egressFeed());
     }
 
 }

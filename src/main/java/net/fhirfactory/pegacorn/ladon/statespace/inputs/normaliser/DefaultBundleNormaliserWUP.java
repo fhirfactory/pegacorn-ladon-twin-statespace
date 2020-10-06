@@ -24,6 +24,8 @@ package net.fhirfactory.pegacorn.ladon.statespace.inputs.normaliser;
 import net.fhirfactory.pegacorn.ladon.statespace.inputs.normaliser.beans.DummyNormaliserBean;
 import net.fhirfactory.pegacorn.petasos.model.topics.TopicToken;
 import net.fhirfactory.pegacorn.petasos.wup.archetypes.MOAStandardWUP;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.HashSet;
@@ -31,7 +33,12 @@ import java.util.Set;
 
 @ApplicationScoped
 public class DefaultBundleNormaliserWUP extends MOAStandardWUP {
-    private static final String WUP_NAME="DefaultBundleNormaliserWUP";
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultBundleNormaliserWUP.class);
+    
+    @Override
+    protected Logger getLogger(){return(LOG);}
+
+    private static final String WUP_NAME="Pegacorn.Ladon.Normaliser.FHIR-Bundle";
     private static final String WUP_VERSION="1.0.0";
 
     @Override
@@ -39,7 +46,7 @@ public class DefaultBundleNormaliserWUP extends MOAStandardWUP {
         String resourceName = "Bundle";
         String resourceVersion = "4.0.1";
         TopicToken topicId = getFHIRTopicIDBuilder().createTopicToken(resourceName, resourceVersion);
-        topicId.addDescriminator("NormalisationStatus", "False");
+        topicId.addDescriminator("Destination", "Ladon.StateSpace.Normaliser");
         HashSet<TopicToken> myTopicSet = new HashSet<TopicToken>();
         myTopicSet.add(topicId);
         return(myTopicSet);
@@ -65,7 +72,7 @@ public class DefaultBundleNormaliserWUP extends MOAStandardWUP {
         // This is truly a do-nothing WUP for the initial release and is really only here to
         // highlight/exemplify the framework for the StateSpace component architecture.
         from(ingresFeed())
-                .routeId(WUP_NAME)
+                .routeId(getNameSet().getRouteCoreWUP())
                 .bean(DummyNormaliserBean.class,"normaliseBundle(*)")
                 .to(egressFeed());
     }

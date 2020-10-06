@@ -23,6 +23,8 @@ package net.fhirfactory.pegacorn.ladon.statespace.inputs.staging.coverageelligib
 
 import net.fhirfactory.pegacorn.petasos.model.topics.TopicToken;
 import net.fhirfactory.pegacorn.petasos.wup.archetypes.MOAStandardWUP;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.HashSet;
@@ -30,6 +32,10 @@ import java.util.Set;
 
 @ApplicationScoped
 public class CoverageEligibilityResponseSSTopic extends MOAStandardWUP {
+    private static final Logger LOG = LoggerFactory.getLogger(CoverageEligibilityResponseSSTopic.class );
+    @Override
+    protected Logger getLogger(){return(LOG);}
+
     private static String COVERAGE_ELIGIBILITY_RESPONSE_STATE_SPACE_TOPIC_WUP_VERSION = "1.0.0";
     private static String COVERAGE_ELIGIBILITY_RESPONSE_STATE_SPACE_TOPIC_WUP_NAME = "StateSpaceInputsCoverageEligibilityResponseTopicWUP";
     private static String COVERAGE_ELIGIBILITY_RESPONSE_STATE_SPACE_FHIR_VERSION = "4.0.1";

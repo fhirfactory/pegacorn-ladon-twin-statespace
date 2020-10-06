@@ -23,11 +23,17 @@ package net.fhirfactory.pegacorn.ladon.statespace.twinpathway.stimulicollector;
 
 import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.stimulicollector.common.TwinStimuliCollectorBase;
 import net.fhirfactory.pegacorn.ladon.statespace.twinpathwaycontroller.common.TwinTypeEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class ICTSystemTwinStimuliCollector extends TwinStimuliCollectorBase {
+    private static final Logger LOG = LoggerFactory.getLogger( ICTSystemTwinStimuliCollector.class);
+    @Override
+    protected Logger getLogger(){return(LOG);}
+
     @Override
     protected String specifyTwinTypeName() {
         return (TwinTypeEnum.ICTSYSTEM_TWIN.getTwinTypeName());
@@ -35,11 +41,8 @@ public class ICTSystemTwinStimuliCollector extends TwinStimuliCollectorBase {
 
     @Override
     protected String specifyTwinTypeVersion() {
-        return null;
+        return ("1.0.0");
     }
 
-    @Override
-    public void configure() throws Exception {
 
-    }
 }
