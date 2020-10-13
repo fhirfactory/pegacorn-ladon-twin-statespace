@@ -19,53 +19,59 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.ladon.statespace.twinpathway.manifestor.common;
+package net.fhirfactory.pegacorn.ladon.statespace.common;
 
-import net.fhirfactory.pegacorn.ladon.model.behaviours.BehaviourIdentifier;
-import net.fhirfactory.pegacorn.ladon.statespace.stimuli.model.BehaviourCentricExclusiveFilterRulesInterface;
-import net.fhirfactory.pegacorn.petasos.model.topics.TopicToken;
-import net.fhirfactory.pegacorn.ladon.statespace.common.LadonStandardMOAWUP;
+import net.fhirfactory.pegacorn.petasos.core.moa.wup.GenericMOAWUPTemplate;
+import net.fhirfactory.pegacorn.petasos.model.wup.WUPArchetypeEnum;
 
-import java.util.List;
-import java.util.Set;
+public abstract class LadonStandardMOAWUP extends GenericMOAWUPTemplate {
 
-/**
- *
- */
-abstract public class TwinManifestorBase extends LadonStandardMOAWUP {
-    private BehaviourIdentifier behaviourIdentifier;
-    private List<BehaviourCentricExclusiveFilterRulesInterface> behaviourFilterSet;
-
-    public TwinManifestorBase() {
+    public LadonStandardMOAWUP() {
         super();
-        this.behaviourIdentifier = specifyBehaviour();
+    }
+    
+    @Override
+    protected WUPArchetypeEnum specifyWUPArchetype(){
+        return(WUPArchetypeEnum.WUP_NATURE_LADON_STANDARD_MOA);
+    }
+    
+    @Override
+    protected String specifyEgressEndpoint(){
+        return(this.getNameSet().getEndPointWUPEgress());
+    }
+    
+    @Override
+    protected String specifyIngresEndpoint(){
+        return(this.getNameSet().getEndPointWUPIngres());
     }
 
-    abstract protected BehaviourIdentifier specifyBehaviour();
-
     @Override
-    protected Set<TopicToken> specifySubscriptionTopics() {
+    protected String specifyIngresTopologyEndpointName() {
         return null;
     }
 
     @Override
-    protected String specifyWUPInstanceName() {
-        String manifestorName = "TwinManifestorFor-"+specifyBehaviour().getName();
-        return (manifestorName);
+    protected String specifyIngresEndpointVersion() {
+        return null;
     }
 
     @Override
-    protected String specifyWUPVersion() {
-        return (specifyBehaviour().getVersion());
+    protected boolean specifyUsesWUPFrameworkGeneratedIngresEndpoint() {
+        return (true);
     }
 
     @Override
-    protected String specifyWUPWorkshop() {
-        return ("StateSpace");
+    protected String specifyEgressTopologyEndpointName() {
+        return null;
     }
 
     @Override
-    public void configure() throws Exception {
+    protected String specifyEgressEndpointVersion() {
+        return null;
+    }
 
+    @Override
+    protected boolean specifyUsesWUPFrameworkGeneratedEgressEndpoint() {
+        return (true);
     }
 }
