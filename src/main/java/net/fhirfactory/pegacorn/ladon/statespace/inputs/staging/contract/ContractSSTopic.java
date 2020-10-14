@@ -68,7 +68,7 @@ public class ContractSSTopic extends MOAStandardWUP {
     public void configure() throws Exception {
         // This is truly a do-nothing WUP for the initial release and is really only here to
         // separate the topics into their own queue.
-        from(ingresFeed())
+        fromWithStandardExceptionHandling(ingresFeed())
                 .routeId(this.getNameSet().getWupTypeName())
                 .bean(ContractSSTopicProcessorBean.class,"toPubSub(*)")
                 .to(egressFeed());

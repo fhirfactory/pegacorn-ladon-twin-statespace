@@ -21,15 +21,16 @@
  */
 package net.fhirfactory.pegacorn.ladon.statespace.inputs.staging.examplescenario;
 
-import net.fhirfactory.pegacorn.ladon.statespace.inputs.staging.devicemetric.DeviceMetricSSTopicProcessorBean;
-import net.fhirfactory.pegacorn.petasos.model.topics.TopicToken;
-import net.fhirfactory.pegacorn.petasos.wup.archetypes.MOAStandardWUP;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.enterprise.context.ApplicationScoped;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.ApplicationScoped;
-import java.util.HashSet;
-import java.util.Set;
+import net.fhirfactory.pegacorn.petasos.model.topics.TopicToken;
+import net.fhirfactory.pegacorn.petasos.wup.archetypes.MOAStandardWUP;
 
 @ApplicationScoped
 public class ExampleScenarioSSTopic extends MOAStandardWUP {
@@ -70,7 +71,7 @@ public class ExampleScenarioSSTopic extends MOAStandardWUP {
     public void configure() throws Exception {
         // This is truly a do-nothing WUP for the initial release and is really only here to
         // separate the topics into their own queue.
-        from(ingresFeed())
+        fromWithStandardExceptionHandling(ingresFeed())
                 .routeId(this.getNameSet().getWupTypeName())
                 .bean(ExampleScenarioSSTopicProcessorBean.class,"toPubSub(*)")
                 .to(egressFeed());
