@@ -1,12 +1,13 @@
 package net.fhirfactory.pegacorn.ladon.statespace.twinpathway.stimulicollector.common;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.inject.Inject;
+
 import net.fhirfactory.pegacorn.petasos.datasets.manager.TopicIM;
 import net.fhirfactory.pegacorn.petasos.model.topics.TopicToken;
 import net.fhirfactory.pegacorn.petasos.wup.archetypes.MOAStandardWUP;
-
-import javax.inject.Inject;
-import java.util.HashSet;
-import java.util.Set;
 
 public abstract class TwinStimuliCollectorBase extends MOAStandardWUP {
 
@@ -46,7 +47,7 @@ public abstract class TwinStimuliCollectorBase extends MOAStandardWUP {
     @Override
     public void configure() throws Exception {
 
-        from(ingresFeed())
+        fromWithStandardExceptionHandling(ingresFeed())
                 .routeId(getNameSet().getRouteCoreWUP())
                 .bean(TwinStimuliCollectorProcessingBean.class, "collectForQueueing(*, " + specifyTwinTypeName() +")")
                 .to(egressFeed());
