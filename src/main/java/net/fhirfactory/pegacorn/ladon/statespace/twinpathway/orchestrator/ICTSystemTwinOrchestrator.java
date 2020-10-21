@@ -21,24 +21,22 @@
  */
 package net.fhirfactory.pegacorn.ladon.statespace.twinpathway.orchestrator;
 
-import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.manifestor.activitylock.ICTSystemTwinPathwayController;
-import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.twinstate.common.TwinInstanceState;
-import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.orchestrator.common.TwinOrchestratorBase;
-import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.twinstate.common.TwinTypeEnum;
-
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import net.fhirfactory.pegacorn.ladon.model.twin.TwinTypeEnum;
+import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.orchestrator.common.TwinOrchestratorBase;
 
 @ApplicationScoped
 public class ICTSystemTwinOrchestrator extends TwinOrchestratorBase {
-
-    @Inject
-    ICTSystemTwinPathwayController twinPathwayController;
-
+    private static final Logger LOG = LoggerFactory.getLogger(ICTSystemTwinOrchestrator.class );
+    
     @Override
-    protected TwinInstanceState specifyPathwayController() {
-        return (twinPathwayController);
-    }
+    protected Logger getLogger(){return(LOG);}
 
     @Override
     protected TwinTypeEnum specifyTwinType() {

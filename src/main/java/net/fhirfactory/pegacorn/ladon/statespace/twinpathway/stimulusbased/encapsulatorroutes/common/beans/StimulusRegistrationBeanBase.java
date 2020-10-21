@@ -19,27 +19,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.ladon.statespace.twinpathway.orchestrator;
-
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
-import javax.enterprise.context.ApplicationScoped;
+package net.fhirfactory.pegacorn.ladon.statespace.twinpathway.stimulusbased.encapsulatorroutes.common.beans;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import net.fhirfactory.pegacorn.ladon.model.twin.TwinTypeEnum;
+import net.fhirfactory.pegacorn.ladon.model.stimuli.Stimulus;
 import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.orchestrator.common.TwinOrchestratorBase;
 
-@ApplicationScoped
-public class PractitionerTwinOrchestrator extends TwinOrchestratorBase {
-    private static final Logger LOG = LoggerFactory.getLogger(PractitionerTwinOrchestrator.class );
-    
-    @Override
-    protected Logger getLogger(){return(LOG);}
-
-    @Override
-    protected TwinTypeEnum specifyTwinType() {
-        return (TwinTypeEnum.PRACTITIONER_TWIN);
-    }
+public abstract class StimulusRegistrationBeanBase {
+	
+	protected abstract TwinOrchestratorBase specifyTwinOrchestrator(); 
+	protected abstract Logger getLogger();
+	
+	protected TwinOrchestratorBase getTwinOrchestrator() {
+		return(specifyTwinOrchestrator());
+	}
+	
+	public String registerStimulus(Stimulus incomingStimulus) {
+		getTwinOrchestrator().registerNewStimulus(incomingStimulus);
+		return(null);
+	}
+	
 }

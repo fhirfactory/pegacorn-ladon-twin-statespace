@@ -21,21 +21,23 @@
  */
 package net.fhirfactory.pegacorn.ladon.statespace.twinpathway.orchestrator;
 
-import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.twinstate.common.TwinInstanceState;
-import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.orchestrator.common.TwinOrchestratorBase;
-import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.twinstate.common.TwinTypeEnum;
-
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import net.fhirfactory.pegacorn.ladon.model.twin.TwinTypeEnum;
+import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.orchestrator.common.TwinOrchestratorBase;
 
 @ApplicationScoped
 public class OrganizationTwinOrchestrator extends TwinOrchestratorBase {
-
-
+    private static final Logger LOG = LoggerFactory.getLogger(OrganizationTwinOrchestrator.class );
+    
     @Override
-    protected TwinInstanceState specifyPathwayController() {
-        return null;
-    }
-
+    protected Logger getLogger(){return(LOG);}
+    
     @Override
     protected TwinTypeEnum specifyTwinType() {
         return (TwinTypeEnum.ORGANIZATION_TWIN);

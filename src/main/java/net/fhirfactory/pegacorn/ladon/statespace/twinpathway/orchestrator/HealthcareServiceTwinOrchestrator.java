@@ -21,20 +21,19 @@
  */
 package net.fhirfactory.pegacorn.ladon.statespace.twinpathway.orchestrator;
 
+import net.fhirfactory.pegacorn.ladon.model.twin.TwinTypeEnum;
 import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.orchestrator.common.TwinOrchestratorBase;
-import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.twinstate.common.TwinInstanceState;
-import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.twinstate.common.TwinTypeEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class HealthcareServiceTwinOrchestrator extends TwinOrchestratorBase {
-
-
+    private static final Logger LOG = LoggerFactory.getLogger(HealthcareServiceTwinOrchestrator.class );
+    
     @Override
-    protected TwinInstanceState specifyPathwayController() {
-        return null;
-    }
+    protected Logger getLogger(){return(LOG);}
 
     @Override
     protected TwinTypeEnum specifyTwinType() {

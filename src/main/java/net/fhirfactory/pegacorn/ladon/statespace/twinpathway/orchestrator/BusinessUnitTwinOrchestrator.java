@@ -21,27 +21,27 @@
  */
 package net.fhirfactory.pegacorn.ladon.statespace.twinpathway.orchestrator;
 
-import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.orchestrator.common.TwinOrchestratorBase;
-import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.manifestor.activitylock.ICTSystemTwinPathwayController;
-import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.twinstate.common.TwinInstanceState;
-import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.twinstate.common.TwinTypeEnum;
-
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+
+import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.stimulusbased.encapsulatorroutes.common.TwinTypeBaseBehaviourEncapsulatorRouteWUP;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import net.fhirfactory.pegacorn.ladon.model.twin.TwinTypeEnum;
+import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.orchestrator.common.TwinOrchestratorBase;
 
 @ApplicationScoped
 public class BusinessUnitTwinOrchestrator extends TwinOrchestratorBase {
-
-    @Inject
-    ICTSystemTwinPathwayController twinPathwayController;
-
+    private static final Logger LOG = LoggerFactory.getLogger(BusinessUnitTwinOrchestrator.class );
+    
     @Override
-    protected TwinInstanceState specifyPathwayController() {
-        return (twinPathwayController);
-    }
+    protected Logger getLogger(){return(LOG);}
+    
+	@Override
+	protected TwinTypeEnum specifyTwinType() {
+		return (TwinTypeEnum.BUSINESS_UNIT_TWIN);
+	}
 
-    @Override
-    protected TwinTypeEnum specifyTwinType() {
-        return (TwinTypeEnum.BUSINESS_UNIT_TWIN);
-    }
 }

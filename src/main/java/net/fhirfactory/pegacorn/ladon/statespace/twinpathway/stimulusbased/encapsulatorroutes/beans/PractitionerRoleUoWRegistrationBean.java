@@ -19,27 +19,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.ladon.statespace.twinpathway.orchestrator;
+package net.fhirfactory.pegacorn.ladon.statespace.twinpathway.stimulusbased.encapsulatorroutes.beans;
 
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.fhirfactory.pegacorn.ladon.model.twin.TwinTypeEnum;
+import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.orchestrator.PractitionerRoleTwinOrchestrator;
 import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.orchestrator.common.TwinOrchestratorBase;
+import net.fhirfactory.pegacorn.ladon.statespace.twinpathway.stimulusbased.encapsulatorroutes.common.beans.UoWRegistrationBeanBase;
 
 @ApplicationScoped
-public class PractitionerTwinOrchestrator extends TwinOrchestratorBase {
-    private static final Logger LOG = LoggerFactory.getLogger(PractitionerTwinOrchestrator.class );
-    
-    @Override
-    protected Logger getLogger(){return(LOG);}
+public class PractitionerRoleUoWRegistrationBean extends UoWRegistrationBeanBase{
+	private static final Logger LOG = LoggerFactory.getLogger(PractitionerRoleUoWRegistrationBean.class);
+	
+	@Inject
+	private PractitionerRoleTwinOrchestrator practitionerRoleOrchestrator;
 
-    @Override
-    protected TwinTypeEnum specifyTwinType() {
-        return (TwinTypeEnum.PRACTITIONER_TWIN);
-    }
+	@Override
+	protected TwinOrchestratorBase specifyTwinOrchestrator() {
+		return(practitionerRoleOrchestrator);
+	}
+
+	@Override
+	protected Logger getLogger() {
+		return(LOG);
+	}
+
 }

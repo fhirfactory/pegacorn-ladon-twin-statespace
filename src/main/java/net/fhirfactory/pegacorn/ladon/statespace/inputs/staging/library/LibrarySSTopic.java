@@ -38,7 +38,7 @@ public class LibrarySSTopic extends MOAStandardWUP {
     protected Logger getLogger(){return(LOG);}
 
     private static String STATE_SPACE_TOPIC_WUP_VERSION = "1.0.0";
-    private static String STATE_SPACE_TOPIC_RESOURCE_ID = "LibraryMetric";
+    private static String STATE_SPACE_TOPIC_RESOURCE_ID = "Library";
     private static String STATE_SPACE_FHIR_VERSION = "4.0.1";
 
 
